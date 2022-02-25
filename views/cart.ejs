@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            background-image: url("background3.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            -webkit-text-stroke: 1px blue;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+    <a class="navbar-brand" style="color: rgb(191, 255, 161)">Cart(<%=totalAmount%>)</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <%- include("homecart") %>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form method="POST" action='/search' class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" name="Search" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+   <form action="/cart" method="post">
+        <% array.forEach(function(a){ %>
+            <div style="display:inline-block;margin-inline-start: 5%;position: relative;">
+            <p style="color:cadetblue;font-size: x-large;font-family:'Courier New', Courier, monospace;"><%= a.item.name %></p>
+            <img src= <%=a.item.img%> width="210" height = "300">
+            <br>
+            <p style="color:cadetblue;font-family:'Courier New', Courier, monospace;">Price <%=a.item.price%>L.E Amount <%=a.quan%></p>
+            <div class="row">
+                <div class="col-4 offset-2"><button type="submit" name="action" value="<%=a.item.name%> R" class="btn btn-small btn-block btn-danger" >-</button></div>
+                <div class="col-4"><button type="submit" name="action" value="<%=a.item.name%> A" class="btn btn-small btn-block btn-success">+</button></div>
+                <div class="clearfix"></div>
+            </div>
+            </div>
+        <% }) %>
+        <br>
+        <br>
+        <br>
+        <h1>Total Price <%=totalPrice%> L.E</h1>
+        <button type="button" onclick="location.href = '/cart';" id="cart" class="btn btn-secondary ml-3" style="width: 300px;">Check Out</button>
+   </form>
+
+</body>
+</html>
